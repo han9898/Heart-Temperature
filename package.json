@@ -5,5 +5,11 @@
   "main": "index.js",
   "repository": "https://github.com/han9898/-.git",
   "author": "sohee <topa11uu@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "eslint": "^9.33.0"
+  },
+  "devDependencies": {
+    "prettier": "3.6.2"
+  }
 }

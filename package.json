@@ -6,10 +6,9 @@
   "repository": "https://github.com/han9898/-.git",
   "author": "sohee <topa11uu@gmail.com>",
   "license": "MIT",
-  "dependencies": {
-    "eslint": "^9.33.0"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "eslint": "^9.33.0",
     "prettier": "3.6.2"
   }
 }

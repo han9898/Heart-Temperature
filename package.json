@@ -2,7 +2,6 @@
   "name": "Heart-Temperature",
   "version": "1.0.0",
   "description": "감정 일기장을 작성하고 분석하는 웹 서비스",
-  "main": "index.js",
   "repository": "https://github.com/han9898/-.git",
   "author": "sohee <topa11uu@gmail.com>",
   "license": "MIT",

@@ -7,14 +7,18 @@
   "author": "sohee <topa11uu@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@tanstack/react-query": "^5.85.1",
+    "framer-motion": "^12.23.12",
     "next": "^15.4.6",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "tailwindcss": "^4.1.11",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "zustand": "^5.0.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
+    "@tanstack/react-query-devtools": "^5.85.1",
     "@types/node": "24.2.1",
     "@types/react": "19.1.10",
     "eslint": "^9.33.0",

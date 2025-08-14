@@ -7,10 +7,20 @@
   "author": "sohee <topa11uu@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "next": "^15.4.6",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "typescript": "^5.9.2"
   },
   "devDependencies": {
-    "husky": "^9.1.7",
+    "@types/node": "24.2.1",
+    "@types/react": "19.1.10",
     "prettier": "3.6.2"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   }
 }

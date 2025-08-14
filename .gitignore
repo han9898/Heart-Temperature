@@ -1,21 +1,41 @@
-# Created by https://www.toptal.com/developers/gitignore/api/react,yarn,windows
-# Edit at https://www.toptal.com/developers/gitignore?templates=react,yarn,windows
+# Created by https://www.toptal.com/developers/gitignore/api/yarn,windows,nextjs
+# Edit at https://www.toptal.com/developers/gitignore?templates=yarn,windows,nextjs
 
-### react ###
-.DS_*
-*.log
-logs
-**/*.backup.*
-**/*.back.*
+### NextJS ###
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
 
-node_modules
-bower_components
+# testing
+/coverage
 
-*.sublime*
+# next.js
+/.next/
+/out/
 
-psd
-thumb
-sketch
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local env files
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
 
 ### Windows ###
 # Windows thumbnail cache files
@@ -60,4 +80,4 @@ $RECYCLE.BIN/
 # and uncomment the following lines
 # .pnp.*
 
-# End of https://www.toptal.com/developers/gitignore/api/react,yarn,windows
+# End of https://www.toptal.com/developers/gitignore/api/yarn,windows,nextjs

@@ -9,6 +9,7 @@ export default function RootLayout({
     <html lang="Ko">
       <body>
         <Page />
+        {children}
       </body>
     </html>
   );

@@ -1,4 +1,4 @@
-import Page from "./page";
+import "./globals.css";
 
 export default function RootLayout({
   children,
@@ -7,10 +7,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="Ko">
-      <body>
-        <Page />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

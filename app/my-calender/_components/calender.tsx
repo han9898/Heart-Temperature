@@ -36,9 +36,9 @@ export default function Calendar() {
       return (
         <div
           key={i}
-          className={`p-4 text-center 
+          className={`p-4 text-center hover:text-white hover:bg-gray-300 hover:rounded-3xl
             ${day.type !== "current" ? "text-gray-200" : ""} 
-            ${day.type === "current" && isToday ? "bg-gray-200 text-white font-bold rounded-3xl" : ""}
+            ${day.type === "current" && isToday ? "bg-gray-200 text-text-slate-600 font-bold rounded-3xl" : ""}
             ${day.type === "current" && weekday === 0 ? "text-red-500" : ""}
             ${day.type === "current" && weekday === 6 ? "text-blue-500" : ""}`}
         >
@@ -57,7 +57,7 @@ export default function Calendar() {
   };
 
   return (
-    <div className="w-[400px] mx-auto text-center">
+    <div>
       <div className="flex items-center justify-between mb-5">
         <button onClick={handlePrev}>◀</button>
         <span className="font-bold">

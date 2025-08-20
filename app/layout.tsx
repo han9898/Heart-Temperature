@@ -7,7 +7,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="Ko">
-      <body>{children}</body>
+      <body className="font-pretendard">{children}</body>
     </html>
   );
 }

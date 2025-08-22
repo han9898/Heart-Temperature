@@ -1,14 +1,26 @@
-export default function Diary() {
+"use client";
+
+export type Todo = {
+  id: number;
+  created_at: string;
+  emotion: number;
+  content: string;
+};
+
+export default function Diary({ todos }: { todos: Todo }) {
+  // console.log("todos : ", todos);
+
   return (
     <div>
       <div className="flex justify-center gap-5 text-lg font-bold">
-        <div>2025/8/20</div>
-        <div>15:06</div>
+        <div>{todos.created_at}</div>
+        {/* <div>2025/8/20</div>
+        <div>15:06</div> */}
       </div>
       <div>🥲</div>
+      <div>{todos.emotion}</div>
       <div className="px-4 py-6 bg-gray-100 rounded-2xl">
-        메모 오늘 하루 진짜 슬프다 하늘이 우중충해서 하루 종일 집에만
-        있어야겟어. 친구네 고양이 보고 기분 풀어볼까.
+        <div>{todos.content}</div>
       </div>
     </div>
   );

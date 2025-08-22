@@ -2,8 +2,11 @@ import Link from "next/link";
 import Calender from "./_components/calender";
 import Diary from "./_components/diary";
 import OpenAi from "./_components/open-ai";
+import { getTemperatures } from "../../api/get-temperatures";
 
-export default function MyCalenderPage() {
+export default async function MyCalenderPage() {
+  const todos = await getTemperatures();
+
   return (
     <div className="flex flex-col max-w-md gap-8 p-3 mx-auto text-center">
       <Link
@@ -14,7 +17,7 @@ export default function MyCalenderPage() {
       </Link>
 
       <Calender />
-      <Diary />
+      <Diary todos={todos[0]} />
       <OpenAi />
     </div>
   );

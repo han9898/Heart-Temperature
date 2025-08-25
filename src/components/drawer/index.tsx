@@ -7,8 +7,8 @@ export default function Drawer() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div>
-      <Button onClick={() => setIsOpen(true)} label="버튼" />
+    <div className="flex justify-center">
+      <Button onClick={() => setIsOpen(true)} label="AI 감정 분석" />
 
       {isOpen && (
         <div
@@ -16,8 +16,7 @@ export default function Drawer() {
           onClick={() => setIsOpen(false)}
         >
           <div
-            className={`fixed bottom-0 left-0 right-0 h-3/5 bg-white shadow-lg transform transition-transform duration-300 z-50
-            ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+            className={`fixed bottom-0 left-0 right-0 h-3/5 bg-white shadow-lg transform transition-transform duration-300 z-50 ${isOpen ? "translate-x-0" : "translate-x-full"}`}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between p-4 border-b">

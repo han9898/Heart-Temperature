@@ -1,14 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { Button } from "../button";
 
-export default function Drawer() {
+type DrawerProps = {
+  label: string;
+  children: ReactNode;
+};
+
+export default function Drawer({ label, children }: DrawerProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="flex justify-center">
-      <Button onClick={() => setIsOpen(true)} label="AI 감정 분석" />
+      <Button onClick={() => setIsOpen(true)} label={label} />
 
       {isOpen && (
         <div
@@ -20,9 +25,10 @@ export default function Drawer() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between p-4 border-b">
-              <h2 className="text-lg font-bold">Drawer</h2>
+              <h2 className="text-lg font-bold">open AI</h2>
               <button onClick={() => setIsOpen(false)}>X</button>
             </div>
+            <div className="py-4">{children}</div>
           </div>
         </div>
       )}

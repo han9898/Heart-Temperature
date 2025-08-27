@@ -2,7 +2,7 @@ import Link from "next/link";
 import Calender from "./_components/calender";
 import Diary from "./_components/diary";
 import OpenAi from "./_components/open-ai";
-import { getTemperatures } from "../../api/get-temperatures";
+import { getTemperatures } from "../api/get-temperatures";
 import { formatKoreanDate } from "../../utils/format-date";
 
 export default async function MyCalenderPage() {

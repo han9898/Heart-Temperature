@@ -59,7 +59,7 @@ export default function Calendar() {
   };
 
   return (
-    <div>
+    <div className="px-4 py-6 bg-slate-50 rounded-2xl">
       <div className="flex items-center justify-between mb-5">
         <button onClick={handlePrev}>◀</button>
         <span className="font-bold">

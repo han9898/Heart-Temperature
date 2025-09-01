@@ -18,18 +18,18 @@ export default function Drawer({ label, children, content }: DrawerProps) {
 
       {isOpen && (
         <div
-          className="fixed inset-0 z-10 bg-black bg-opacity-50"
+          className="fixed inset-0 z-20 bg-black bg-opacity-50 "
           onClick={() => setIsOpen(false)}
         >
           <div
-            className={`fixed bottom-0 left-0 right-0 h-3/5 bg-white shadow-lg transform transition-transform duration-300 z-50 ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+            className={`fixed bottom-0 left-0 right-0 h-3/5 rounded-t-3xl bg-white shadow-lg transform transition-transform duration-300 z-50 ${isOpen ? "translate-x-0" : "translate-x-full"}`}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between p-4 border-b">
               <h2 className="text-lg font-bold">{content}</h2>
               <button onClick={() => setIsOpen(false)}>X</button>
             </div>
-            <div className="py-4">{children}</div>
+            <div className="px-6">{children}</div>
           </div>
         </div>
       )}

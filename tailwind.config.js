@@ -6,6 +6,11 @@ export default {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screens: {
+      sm: { max: "480px" },
+      md: "803px",
+      xl: "1280px",
+    },
     extend: {
       fontFamily: {
         pretendard: ["pretendard", "sans-serif"],

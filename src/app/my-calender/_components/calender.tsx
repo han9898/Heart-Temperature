@@ -59,7 +59,7 @@ export default function Calendar() {
   };
 
   return (
-    <div className="select-none">
+    <div>
       <div className="flex items-center justify-between mb-5">
         <button onClick={handlePrev}>◀</button>
         <span className="font-bold">

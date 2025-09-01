@@ -39,7 +39,7 @@ export default function OpenAi() {
 
   return (
     <div>
-      <Drawer label="AI 감정 분석">
+      <Drawer label="AI 감정 분석" content="Open AI">
         <div className="flex flex-col items-center justify-center gap-5">
           <p className="mt-4">{response}</p>
 

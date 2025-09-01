@@ -6,9 +6,10 @@ import { Button } from "../button";
 type DrawerProps = {
   label: string;
   children: ReactNode;
+  content: string;
 };
 
-export default function Drawer({ label, children }: DrawerProps) {
+export default function Drawer({ label, children, content }: DrawerProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -25,7 +26,7 @@ export default function Drawer({ label, children }: DrawerProps) {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between p-4 border-b">
-              <h2 className="text-lg font-bold">open AI</h2>
+              <h2 className="text-lg font-bold">{content}</h2>
               <button onClick={() => setIsOpen(false)}>X</button>
             </div>
             <div className="py-4">{children}</div>

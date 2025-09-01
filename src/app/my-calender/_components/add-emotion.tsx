@@ -7,11 +7,11 @@ import { addTemperature } from "../../api/post-temperatures";
 type EmotionKey = 1 | 2 | 3 | 4 | 5;
 
 const emotionMap: Record<EmotionKey, string> = {
-  1: "기쁨",
-  2: "슬픔",
-  3: "즐거움",
-  4: "화남",
-  5: "수긍",
+  1: "🥰",
+  2: "😶‍🌫️",
+  3: "😴",
+  4: "😡",
+  5: "😭",
 } as const;
 
 const EMOTION_KEYS: readonly EmotionKey[] = [1, 2, 3, 4, 5];
@@ -36,6 +36,7 @@ export default function EmotionRecorder() {
       setEmotion(null);
       setContent("");
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error);
       alert("저장 중 오류가 발생했습니다.");
     }
@@ -43,7 +44,7 @@ export default function EmotionRecorder() {
 
   return (
     <div>
-      <Drawer label="오늘의 감정 추가하기">
+      <Drawer label="오늘의 감정 추가하기" content="오늘의 감정">
         <div className="flex flex-col items-center justify-center gap-5 p-4">
           <div className="flex gap-2">
             {EMOTION_KEYS.map((key) => (

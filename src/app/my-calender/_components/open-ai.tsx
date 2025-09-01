@@ -3,23 +3,28 @@
 import { useState, useEffect, useRef } from "react";
 import sendMessage from "../../api/openai/send-message";
 
-export default function OpenAi() {
-  const [messages, setMessages] = useState<{ role: string; content: string }[]>(
-    [],
-  );
+type OpenAiProps = {
+  messages: { role: string; content: string }[];
+  setMessages: React.Dispatch<
+    React.SetStateAction<{ role: string; content: string }[]>
+  >;
+};
+
+export default function OpenAi({ messages, setMessages }: OpenAiProps) {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const chatRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const init = async () => {
-      if (messages.length > 0) return;
       const initialMsg = { role: "user", content: "안녕!" };
-      const result = await sendMessage([initialMsg]);
-      setMessages([
-        { role: "user", content: "안녕!" },
-        { role: "assistant", content: result },
-      ]);
+      try {
+        const result = await sendMessage([initialMsg]);
+        setMessages([{ role: "assistant", content: result }]);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error("OpenAi 초기 호출 실패", error);
+      }
     };
     init();
   }, []);
@@ -53,7 +58,7 @@ export default function OpenAi() {
   };
 
   return (
-    <div className="flex flex-col w-full max-w-md p-4 mx-auto">
+    <div className="flex flex-col w-full p-4 mx-auto">
       <div
         ref={chatRef}
         className="flex flex-col h-64 gap-4 mb-4 overflow-y-auto"
@@ -86,17 +91,22 @@ export default function OpenAi() {
       </div>
 
       <div className="flex gap-2">
-        <input
-          type="text"
+        <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && handleSend(input)}
-          className="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
-          placeholder="메시지를 입력하세요"
+          placeholder="오늘의 감정을 적어주세요"
+          disabled={isLoading}
+          rows={1}
+          className="w-full p-4 overflow-hidden border rounded-lg resize-none focus:outline-none focus:ring-0"
+          onInput={(e) => {
+            const target = e.target as HTMLTextAreaElement;
+            target.style.height = "auto";
+            target.style.height = `${target.scrollHeight}px`;
+          }}
         />
         <button
           onClick={() => handleSend(input)}
-          className="px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-700"
+          className="w-20 px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-700"
         >
           전송
         </button>

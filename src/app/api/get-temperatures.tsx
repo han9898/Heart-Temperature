@@ -13,11 +13,7 @@ export async function getTemperatures(): Promise<TemperatureRecord[]> {
     .select("*")
     .order("created_at", { ascending: false });
 
-  if (error) {
-    // eslint-disable-next-line no-console
-    console.error("마음온도 조회 실패:", error.message);
-    return [];
-  }
+  if (error) throw error;
 
   return data as TemperatureRecord[];
 }

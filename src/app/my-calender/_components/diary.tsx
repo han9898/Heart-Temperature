@@ -30,7 +30,9 @@ export default function Diary({ todos, createdAt }: DiaryProps) {
         <div className="flex-[1] flex items-center justify-center z-10">
           <div className="text-2xl">{emotion()}</div>
         </div>
-        <div className="flex-[9] z-10 px-5">{todos.content}</div>
+        <div className="flex-[9] z-10 px-5 text-start whitespace-pre-wrap break-words">
+          {todos.content}
+        </div>
       </div>
     </div>
   );

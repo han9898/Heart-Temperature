@@ -2,7 +2,17 @@
 
 import { useState } from "react";
 
-export default function Calendar() {
+type CalendarProps = {
+  todos: { created_at: string }[];
+  selectedDate: Date | null;
+  setSelectedDate: (_date: Date) => void;
+};
+
+export default function Calendar({
+  todos,
+  selectedDate,
+  setSelectedDate,
+}: CalendarProps) {
   const [current, setCurrent] = useState(new Date());
 
   const renderCalendar = () => {
@@ -15,7 +25,7 @@ export default function Calendar() {
 
     const prevLastDate = new Date(year, month, 0).getDate();
     for (let i = firstDay - 1; i >= 0; i--)
-      days.push({ day: prevLastDate - (1 + i), type: "prev" });
+      days.push({ day: prevLastDate - i, type: "prev" });
 
     for (let i = 1; i <= lastDate; i++) days.push({ day: i, type: "current" });
 
@@ -31,32 +41,60 @@ export default function Calendar() {
         month === today.getMonth() &&
         year === today.getFullYear();
 
+      const isSelected =
+        selectedDate &&
+        day.type === "current" &&
+        selectedDate.getDate() === day.day &&
+        selectedDate.getMonth() === month &&
+        selectedDate.getFullYear() === year;
+
       const weekday = i % 7;
+
+      const hasTodo =
+        day.type === "current" &&
+        todos.some((t) => {
+          const todoDate = new Date(t.created_at);
+          return (
+            todoDate.getFullYear() === year &&
+            todoDate.getMonth() === month &&
+            todoDate.getDate() === day.day
+          );
+        });
 
       return (
         <div
           key={i}
-          className={`p-4 text-center cursor-pointer
-                      ${day.type !== "current" ? "text-gray-200" : ""}
-                      ${day.type === "current" && isToday ? "bg-gray-200 font-bold" : ""}
-                      ${day.type === "current" && weekday === 0 ? "text-red-500" : ""}
-                      ${day.type === "current" && weekday === 6 ? "text-blue-500" : ""}
-                     
-  `}
+          onClick={() =>
+            day.type === "current" &&
+            setSelectedDate(new Date(year, month, day.day))
+          }
+          className={`p-4 text-center cursor-pointer rounded-lg
+            ${day.type !== "current" ? "text-gray-200" : ""}
+            ${isSelected ? "bg-green-300 text-white font-bold" : ""}
+            ${isToday ? "bg-gray-200 font-bold" : ""}
+            ${
+              day.type === "current" && !isSelected
+                ? hasTodo
+                  ? weekday === 0
+                    ? "text-red-500"
+                    : weekday === 6
+                      ? "text-blue-500"
+                      : "text-black"
+                  : "text-gray-400"
+                : ""
+            }
+          `}
         >
-          {day.day ?? ""}
+          {day.day}
         </div>
       );
     });
   };
 
-  const handlePrev = () => {
+  const handlePrev = () =>
     setCurrent(new Date(current.getFullYear(), current.getMonth() - 1, 1));
-  };
-
-  const handleNext = () => {
+  const handleNext = () =>
     setCurrent(new Date(current.getFullYear(), current.getMonth() + 1, 1));
-  };
 
   return (
     <div className="px-4 py-6 bg-slate-50 rounded-2xl">

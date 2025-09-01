@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { addTemperature } from "../../api/post-temperatures";
+import { TemperatureRecord } from "../../api/get-temperatures";
 
 type EmotionKey = 1 | 2 | 3 | 4 | 5;
 
@@ -15,7 +16,11 @@ const emotionMap: Record<EmotionKey, string> = {
 
 const EMOTION_KEYS: readonly EmotionKey[] = [1, 2, 3, 4, 5];
 
-export default function EmotionRecorder() {
+type EmotionRecorderProps = {
+  setTodos: React.Dispatch<React.SetStateAction<TemperatureRecord[]>>;
+};
+
+export default function EmotionRecorder({ setTodos }: EmotionRecorderProps) {
   const [emotion, setEmotion] = useState<number | null>(null);
   const [content, setContent] = useState("");
 
@@ -30,8 +35,8 @@ export default function EmotionRecorder() {
     }
 
     try {
-      await addTemperature({ emotion, content });
-      alert("감정이 저장되었습니다!");
+      const newEntry = await addTemperature({ emotion, content });
+      setTodos((prev) => [newEntry, ...prev]);
       setEmotion(null);
       setContent("");
     } catch (error) {
@@ -62,7 +67,13 @@ export default function EmotionRecorder() {
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="오늘의 감정을 적어주세요"
-          className="w-full h-24 p-2 border rounded-lg resize-none"
+          rows={1}
+          className="w-full p-4 overflow-hidden border rounded-lg resize-none focus:outline-none focus:ring-0"
+          onInput={(e) => {
+            const t = e.target as HTMLTextAreaElement;
+            t.style.height = "auto";
+            t.style.height = `${t.scrollHeight}px`;
+          }}
         />
 
         <button

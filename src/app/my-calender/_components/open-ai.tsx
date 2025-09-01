@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import sendMessage from "../../api/openai/send-message";
+import { motion, AnimatePresence } from "framer-motion";
 
 type OpenAiProps = {
   messages: { role: string; content: string }[];
@@ -21,6 +22,13 @@ export default function OpenAi({ messages, setMessages }: OpenAiProps) {
       try {
         const result = await sendMessage([initialMsg]);
         setMessages([{ role: "assistant", content: result }]);
+
+        setTimeout(() => {
+          chatRef.current?.scrollTo({
+            top: chatRef.current.scrollHeight,
+            behavior: "smooth",
+          });
+        }, 50);
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error("OpenAi 초기 호출 실패", error);
@@ -58,43 +66,54 @@ export default function OpenAi({ messages, setMessages }: OpenAiProps) {
   };
 
   return (
-    <div className="flex flex-col w-full p-4 mx-auto">
+    <div className="flex flex-col w-full max-w-md p-4 mx-auto">
       <div
         ref={chatRef}
-        className="flex flex-col h-64 gap-4 mb-4 overflow-y-auto"
+        className="flex-1 h-auto max-h-[460px] mb-4 overflow-y-auto flex flex-col gap-4"
       >
-        {messages.map((msg, idx) => (
-          <div
-            key={idx}
-            className={`flex ${
-              msg.role === "user" ? "justify-end" : "justify-start"
-            }`}
-          >
-            <div
-              className={`px-4 py-2 rounded-lg max-w-xs break-words text-start ${
-                msg.role === "user"
-                  ? "bg-green-500 text-white rounded-br-none"
-                  : "bg-gray-200 text-gray-800 rounded-bl-none"
-              }`}
+        <AnimatePresence>
+          {messages.map((msg, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ type: "spring", stiffness: 500, damping: 25 }}
+              className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
             >
-              {msg.content}
-            </div>
-          </div>
-        ))}
-        {isLoading && (
-          <div className="flex justify-start">
-            <div className="max-w-xs px-4 py-2 text-gray-800 break-words bg-gray-200 rounded-lg animate-pulse">
-              OpenAI가 응답 중...
-            </div>
-          </div>
-        )}
+              <div
+                className={`px-4 py-2 rounded-lg max-w-xs break-words text-start ${
+                  msg.role === "user"
+                    ? "bg-green-500 text-white rounded-br-none"
+                    : "bg-gray-200 text-gray-800 rounded-bl-none"
+                }`}
+              >
+                {msg.content}
+              </div>
+            </motion.div>
+          ))}
+          {isLoading && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ type: "spring", stiffness: 500, damping: 25 }}
+            >
+              <div className="flex justify-start">
+                <div className="max-w-xs px-4 py-2 text-gray-800 break-words bg-gray-200 rounded-lg animate-pulse">
+                  OpenAI가 응답 중...
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       <div className="flex gap-2">
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="오늘의 감정을 적어주세요"
+          placeholder="메시지를 입력하세요"
           disabled={isLoading}
           rows={1}
           className="w-full p-4 overflow-hidden border rounded-lg resize-none focus:outline-none focus:ring-0"

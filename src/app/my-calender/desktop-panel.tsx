@@ -19,39 +19,51 @@ export default function DesktopPanel({
   const [isEmotionVisible, setIsEmotionVisible] = useState(false);
 
   return (
-    <div className="hidden md:block">
-      <div className="flex flex-col gap-4">
-        <div className="overflow-hidden transition-all duration-300 bg-slate-50 rounded-2xl">
+    <div className="flex flex-col gap-4">
+      <div className="overflow-hidden transition-all duration-500 bg-slate-50 rounded-2xl">
+        <div
+          className={`flex justify-between px-8 py-4 text-lg font-bold cursor-pointer transition-all duration-500 ${isOpenAIVisible ? "text-gray-400" : ""}`}
+          onClick={() => {
+            setIsOpenAIVisible((prev) => !prev);
+            setIsEmotionVisible(false);
+          }}
+        >
+          <div>Open AI</div>
           <div
-            className="flex justify-between px-8 py-4 text-lg font-bold cursor-pointer"
-            onClick={() => setIsOpenAIVisible((prev) => !prev)}
+            className={`transition-transform duration-700 ${isOpenAIVisible ? "rotate-180 text-gray-400" : "rotate-0"}`}
           >
-            <div>Open AI</div>
-            <div>{isOpenAIVisible ? "▲" : "▼"}</div>
-          </div>
-          <div
-            className={`px-4 transition-all duration-300 ${
-              isOpenAIVisible ? "max-h-[500px]" : "max-h-0"
-            } overflow-hidden`}
-          >
-            <OpenAi messages={messages} setMessages={setMessages} />
+            ▼
           </div>
         </div>
-        <div className="overflow-hidden transition-all duration-300 bg-slate-50 rounded-2xl">
+        <div
+          className={`px-4 transition-all duration-1000 ${
+            isOpenAIVisible ? "max-h-[600px]" : "max-h-0"
+          } overflow-hidden`}
+        >
+          <OpenAi messages={messages} setMessages={setMessages} />
+        </div>
+      </div>
+      <div className="overflow-hidden transition-all duration-500 bg-slate-50 rounded-2xl">
+        <div
+          className={`flex justify-between px-8 py-4 text-lg font-bold cursor-pointer transition-all duration-500 ${isEmotionVisible ? "text-gray-400" : ""}`}
+          onClick={() => {
+            setIsEmotionVisible((prev) => !prev);
+            setIsOpenAIVisible(false);
+          }}
+        >
+          <div>오늘의 감정은 어떤가요?</div>
           <div
-            className="flex justify-between px-8 py-4 text-lg font-bold cursor-pointer"
-            onClick={() => setIsEmotionVisible((prev) => !prev)}
+            className={`transition-transform duration-700 ${isEmotionVisible ? "rotate-180 text-gray-400" : "rotate-0"}`}
           >
-            <div>오늘의 감정은 어떤가요?</div>
-            <div>{isEmotionVisible ? "▲" : "▼"}</div>
+            ▼
           </div>
-          <div
-            className={`px-4 transition-all duration-300 ${
-              isEmotionVisible ? "max-h-[500px]" : "max-h-0"
-            } overflow-hidden`}
-          >
-            <EmotionRecorder setTodos={setNewTodos} />
-          </div>
+        </div>
+        <div
+          className={`px-4 transition-all duration-1000 ${
+            isEmotionVisible ? "max-h-[500px]" : "max-h-0"
+          } overflow-hidden`}
+        >
+          <EmotionRecorder setTodos={setNewTodos} />
         </div>
       </div>
     </div>

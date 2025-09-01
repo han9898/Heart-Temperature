@@ -10,6 +10,7 @@ import { formatKoreanDate } from "../../utils/format-date";
 import Drawer from "../../components/drawer";
 import { useEffect, useState } from "react";
 import DesktopPanel from "./desktop-panel";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function MyCalenderWrapper() {
   const { data: todos = [] } = useQuery<TemperatureRecord[]>({
@@ -40,8 +41,8 @@ export default function MyCalenderWrapper() {
   });
 
   return (
-    <div className="flex justify-center gap-4 m-auto">
-      <div className="flex flex-col w-full max-w-md gap-8 px-3 text-center">
+    <div className="flex justify-center gap-2 m-auto">
+      <div className="flex flex-col w-full max-w-md gap-8 px-5 text-center">
         <Calender
           todos={newTodos}
           selectedDate={selectedDate}
@@ -68,17 +69,31 @@ export default function MyCalenderWrapper() {
         </div>
 
         <div className="flex flex-col gap-2">
-          {filteredTodos.map((t, i) => {
-            const formattedDate = formatKoreanDate(t.created_at);
-            return <Diary todos={t} key={i} createdAt={formattedDate} />;
-          })}
+          <AnimatePresence>
+            {filteredTodos.map((t) => {
+              const formattedDate = formatKoreanDate(t.created_at);
+              return (
+                <motion.div
+                  key={t.id}
+                  initial={{ opacity: 0, y: -15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Diary todos={t} createdAt={formattedDate} />
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
         </div>
       </div>
-      <DesktopPanel
-        messages={messages}
-        setMessages={setMessages}
-        setNewTodos={setNewTodos}
-      />
+      <div className="sticky self-start hidden px-5 top-24 md:block">
+        <DesktopPanel
+          messages={messages}
+          setMessages={setMessages}
+          setNewTodos={setNewTodos}
+        />
+      </div>
     </div>
   );
 }

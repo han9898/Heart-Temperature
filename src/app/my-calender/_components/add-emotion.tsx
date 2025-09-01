@@ -25,12 +25,8 @@ export default function EmotionRecorder({ setTodos }: EmotionRecorderProps) {
   const [content, setContent] = useState("");
 
   const handleSubmit = async () => {
-    if (!emotion) {
-      alert("감정을 선택해주세요!");
-      return;
-    }
-    if (!content.trim()) {
-      alert("내용을 입력해주세요!");
+    if (!emotion || !content.trim()) {
+      alert("감정과 일기를 작성했나요?");
       return;
     }
 
@@ -76,12 +72,23 @@ export default function EmotionRecorder({ setTodos }: EmotionRecorderProps) {
           }}
         />
 
-        <button
-          onClick={handleSubmit}
-          className="px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600"
-        >
-          저장하기
-        </button>
+        <div className="flex justify-between w-full">
+          <button
+            onClick={handleSubmit}
+            className={`rounded-lg px-4 py-2 text-white bg-green-500 hover:bg-green-600 ${emotion || content ? "" : "cursor-not-allowed"}`}
+          >
+            저장하기
+          </button>
+          <button
+            onClick={() => {
+              setEmotion(null);
+              setContent("");
+            }}
+            className={`rounded-lg px-4 py-2 text-white ${emotion || content ? "bg-green-500 hover:bg-green-600" : "bg-gray-300 cursor-not-allowed"}`}
+          >
+            초기화
+          </button>
+        </div>
       </div>
     </div>
   );

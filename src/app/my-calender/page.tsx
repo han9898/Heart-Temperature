@@ -4,6 +4,7 @@ import Diary from "./_components/diary";
 import OpenAi from "./_components/open-ai";
 import { getTemperatures } from "../api/get-temperatures";
 import { formatKoreanDate } from "../../utils/format-date";
+import EmotionRecorder from "./_components/add-emotion";
 
 export default async function MyCalenderPage() {
   const todos = await getTemperatures();
@@ -18,6 +19,7 @@ export default async function MyCalenderPage() {
       </Link>
       <Calender />
       <OpenAi />
+      <EmotionRecorder />
 
       {todos.map((t, i) => {
         const formattedDate = formatKoreanDate(t.created_at);

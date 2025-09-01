@@ -36,11 +36,13 @@ export default function Calendar() {
       return (
         <div
           key={i}
-          className={`p-4 text-center hover:text-white hover:bg-gray-300 hover:rounded-3xl
-            ${day.type !== "current" ? "text-gray-200" : ""} 
-            ${day.type === "current" && isToday ? "bg-gray-200 text-text-slate-600 font-bold rounded-3xl" : ""}
-            ${day.type === "current" && weekday === 0 ? "text-red-500" : ""}
-            ${day.type === "current" && weekday === 6 ? "text-blue-500" : ""}`}
+          className={`p-4 text-center cursor-pointer
+                      ${day.type !== "current" ? "text-gray-200" : ""}
+                      ${day.type === "current" && isToday ? "bg-gray-200 font-bold" : ""}
+                      ${day.type === "current" && weekday === 0 ? "text-red-500" : ""}
+                      ${day.type === "current" && weekday === 6 ? "text-blue-500" : ""}
+                     
+  `}
         >
           {day.day ?? ""}
         </div>
@@ -57,7 +59,7 @@ export default function Calendar() {
   };
 
   return (
-    <div>
+    <div className="select-none">
       <div className="flex items-center justify-between mb-5">
         <button onClick={handlePrev}>◀</button>
         <span className="font-bold">

@@ -22,7 +22,7 @@ export default function DesktopPanel({
     <div className="flex flex-col gap-4">
       <div className="overflow-hidden transition-all duration-500 bg-slate-50 rounded-2xl">
         <div
-          className={`flex justify-between px-8 py-4 text-lg font-bold cursor-pointer transition-all duration-500 ${isOpenAIVisible ? "text-gray-400" : ""}`}
+          className={`flex group justify-between px-8 py-4 text-lg font-bold cursor-pointer transition-all duration-500 ${isOpenAIVisible ? "text-gray-400" : ""}`}
           onClick={() => {
             setIsOpenAIVisible((prev) => !prev);
             setIsEmotionVisible(false);
@@ -30,7 +30,7 @@ export default function DesktopPanel({
         >
           <div>Open AI</div>
           <div
-            className={`transition-transform duration-700 ${isOpenAIVisible ? "rotate-180 text-gray-400" : "rotate-0"}`}
+            className={`transition-transform duration-300 ${isOpenAIVisible ? "rotate-180 text-gray-400" : "rotate-0 group-hover:rotate-180"}`}
           >
             ▼
           </div>
@@ -45,7 +45,7 @@ export default function DesktopPanel({
       </div>
       <div className="overflow-hidden transition-all duration-500 bg-slate-50 rounded-2xl">
         <div
-          className={`flex justify-between px-8 py-4 text-lg font-bold cursor-pointer transition-all duration-500 ${isEmotionVisible ? "text-gray-400" : ""}`}
+          className={`flex group justify-between px-8 py-4 text-lg font-bold cursor-pointer transition-all duration-500 ${isEmotionVisible ? "text-gray-400" : ""}`}
           onClick={() => {
             setIsEmotionVisible((prev) => !prev);
             setIsOpenAIVisible(false);
@@ -53,7 +53,7 @@ export default function DesktopPanel({
         >
           <div>오늘의 감정은 어떤가요?</div>
           <div
-            className={`transition-transform duration-700 ${isEmotionVisible ? "rotate-180 text-gray-400" : "rotate-0"}`}
+            className={`transition-transform duration-300 ${isEmotionVisible ? "rotate-180 text-gray-400" : "rotate-0 group-hover:rotate-180"}`}
           >
             ▼
           </div>

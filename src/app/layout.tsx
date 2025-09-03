@@ -1,4 +1,5 @@
 import "./globals.css";
+import NavigationBar from "./my-calender/_components/navigation-bar";
 
 export default function RootLayout({
   children,
@@ -7,7 +8,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="Ko">
-      <body className="select-none font-pretendard">{children}</body>
+      <body className="select-none font-pretendard">
+        <NavigationBar />
+        {children}
+      </body>
     </html>
   );
 }

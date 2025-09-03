@@ -18,9 +18,13 @@ const EMOTION_KEYS: readonly EmotionKey[] = [1, 2, 3, 4, 5];
 
 type EmotionRecorderProps = {
   setTodos: React.Dispatch<React.SetStateAction<TemperatureRecord[]>>;
+  setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function EmotionRecorder({ setTodos }: EmotionRecorderProps) {
+export default function EmotionRecorder({
+  setTodos,
+  setDrawerOpen,
+}: EmotionRecorderProps) {
   const [emotion, setEmotion] = useState<number | null>(null);
   const [content, setContent] = useState("");
 
@@ -50,8 +54,8 @@ export default function EmotionRecorder({ setTodos }: EmotionRecorderProps) {
             <button
               key={key}
               onClick={() => setEmotion(key)}
-              className={`px-4 py-2 rounded ${
-                emotion === key ? "bg-blue-500 text-white" : "bg-gray-200"
+              className={`px-4 py-2 rounded hover:bg-gray-300 ${
+                emotion === key ? "bg-green-300 text-white" : "bg-gray-200"
               }`}
             >
               {emotionMap[key]}
@@ -74,7 +78,10 @@ export default function EmotionRecorder({ setTodos }: EmotionRecorderProps) {
 
         <div className="flex justify-between w-full">
           <button
-            onClick={handleSubmit}
+            onClick={() => {
+              handleSubmit();
+              setDrawerOpen?.(false);
+            }}
             className={`rounded-lg px-4 py-2 text-white bg-green-500 hover:bg-green-600 ${emotion || content ? "" : "cursor-not-allowed"}`}
           >
             저장하기

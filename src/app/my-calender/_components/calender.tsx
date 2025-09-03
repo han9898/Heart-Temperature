@@ -69,17 +69,18 @@ export default function Calendar({
             setSelectedDate(new Date(year, month, day.day))
           }
           className={`p-4 text-center cursor-pointer rounded-lg
+            ${day.type === "current" ? "hover:bg-gray-300" : ""}
             ${day.type !== "current" ? "text-gray-200" : ""}
             ${isSelected ? "bg-green-300 text-white font-bold" : ""}
-            ${isToday ? "bg-gray-200 font-bold" : ""}
+            ${isToday && !isSelected ? "bg-gray-200 font-bold" : ""}
             ${
               day.type === "current" && !isSelected
                 ? hasTodo
                   ? weekday === 0
-                    ? "text-red-500"
+                    ? "text-red-500 hover:bg-gray-300"
                     : weekday === 6
-                      ? "text-blue-500"
-                      : "text-black"
+                      ? "text-blue-500 hover:bg-gray-300"
+                      : "text-black hover:bg-gray-300"
                   : "text-gray-400"
                 : ""
             }

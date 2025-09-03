@@ -17,6 +17,7 @@ export default function MyCalenderWrapper() {
     queryKey: ["temperatures"],
     queryFn: getTemperatures,
     staleTime: 1000 * 60 * 5,
+    select: (data) => data ?? [],
   });
   const today = new Date();
   const [newTodos, setNewTodos] = useState<TemperatureRecord[]>([]);
@@ -28,7 +29,9 @@ export default function MyCalenderWrapper() {
   );
 
   useEffect(() => {
-    setNewTodos(todos);
+    if (todos.length > 0 && todos !== newTodos) {
+      setNewTodos(todos);
+    }
   }, [todos]);
 
   const filteredTodos = newTodos.filter((t) => {
@@ -64,7 +67,10 @@ export default function MyCalenderWrapper() {
             drawerOpen={isOpenEmotion}
             setDrawerOpen={setIsOpenEmotion}
           >
-            <EmotionRecorder setTodos={setNewTodos} />
+            <EmotionRecorder
+              setTodos={setNewTodos}
+              setDrawerOpen={setIsOpenEmotion}
+            />
           </Drawer>
         </div>
 

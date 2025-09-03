@@ -9,52 +9,89 @@ type OpenAiProps = {
   setMessages: React.Dispatch<
     React.SetStateAction<{ role: string; content: string }[]>
   >;
+  weekData?: {
+    scores: {
+      positive: number;
+      neutral: number;
+      negative: number;
+    };
+    diaries: string[];
+  };
 };
 
-export default function OpenAi({ messages, setMessages }: OpenAiProps) {
+export default function OpenAi({
+  messages,
+  setMessages,
+  weekData,
+}: OpenAiProps) {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const chatRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const init = async () => {
+      setMessages([]);
       const initialMsg = { role: "user", content: "안녕!" };
       try {
         const result = await sendMessage([initialMsg]);
         setMessages([{ role: "assistant", content: result }]);
-
-        setTimeout(() => {
-          chatRef.current?.scrollTo({
-            top: chatRef.current.scrollHeight,
-            behavior: "smooth",
-          });
-        }, 50);
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error("OpenAi 초기 호출 실패", error);
       }
     };
     init();
-  }, []);
+  }, [setMessages]);
+
+  useEffect(() => {
+    if (chatRef.current) {
+      chatRef.current.scrollTo({
+        top: chatRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [messages]);
 
   const handleSend = async (content: string) => {
     if (!content.trim()) return;
 
     const newMsg = { role: "user", content };
-    const updatedMessages = [...messages, newMsg];
-    setMessages(updatedMessages);
+    setMessages((prev) => [...prev, newMsg]);
     setInput("");
     setIsLoading(true);
 
     try {
-      const result = await sendMessage(updatedMessages);
-      setMessages((prev) => [...prev, { role: "assistant", content: result }]);
+      const additionalMessage = `너는 항상 냉정한 감정 분석가야. 
+      최근 1주일 감정 요약과 일기는 다음과 같아: ${JSON.stringify(weekData, null, 2)}
+      
+      이 데이터를 기반으로 감정 추세와 일기 내용을 분석해줘.
+      결과는 다음 형식으로 작성해:
+      
+      😄 긍정: xx, 🙂 중립: xx, 🥲 부정: xx 
 
-      setIsLoading(false);
-      chatRef.current?.scrollTo({
-        top: chatRef.current.scrollHeight,
-        behavior: "smooth",
-      });
+      ✏️
+      - 3~5문장으로 작성해. 보기 좋게 이모티콘을 활용해.  
+
+      ✏️ 
+      - 3~5문장으로 작성해. 보기 좋게 이모티콘을 활용해.  
+
+      ---
+
+      추가로 하고 싶은 말이 있다면: 
+      ${content} 
+      
+      - 이 경우 1~3문장으로 짧게 대답해.  
+      - 만약 분석을 요청하는 경우라면 아무 말도 하지 말고 '감사합니다'로만 끝내.  
+
+      절대 너의 정체가 감정 분석가라는 사실을 잊지 마.`;
+
+      const messagesToSend = [
+        ...messages,
+        newMsg,
+        { role: "user", content: additionalMessage },
+      ];
+      const result = await sendMessage(messagesToSend);
+      setMessages((prev) => [...prev, { role: "assistant", content: result }]);
     } catch {
       // eslint-disable-next-line no-console
       console.error("OpenAi API Error");
@@ -62,6 +99,8 @@ export default function OpenAi({ messages, setMessages }: OpenAiProps) {
         ...prev,
         { role: "assistant", content: "에러 발생" },
       ]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -79,10 +118,12 @@ export default function OpenAi({ messages, setMessages }: OpenAiProps) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ type: "spring", stiffness: 500, damping: 25 }}
-              className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+              className={`flex ${
+                msg.role === "user" ? "justify-end" : "justify-start"
+              }`}
             >
               <div
-                className={`px-4 py-2 rounded-lg max-w-xs break-words text-start ${
+                className={`px-4 py-2 rounded-lg max-w-xs break-words whitespace-pre-wrap text-start ${
                   msg.role === "user"
                     ? "bg-green-500 text-white rounded-br-none"
                     : "bg-gray-200 text-gray-800 rounded-bl-none"
@@ -113,8 +154,12 @@ export default function OpenAi({ messages, setMessages }: OpenAiProps) {
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="메시지를 입력하세요"
-          disabled={isLoading}
+          placeholder={
+            messages.length > 2 || !weekData
+              ? "감정 분석을 받으셨어요. 😆"
+              : "메시지를 입력하세요"
+          }
+          disabled={isLoading || messages.length > 2 || !weekData}
           rows={1}
           className="w-full p-4 overflow-hidden border rounded-lg resize-none focus:outline-none focus:ring-0"
           onInput={(e) => {
@@ -125,7 +170,12 @@ export default function OpenAi({ messages, setMessages }: OpenAiProps) {
         />
         <button
           onClick={() => handleSend(input)}
-          className="w-20 px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-700"
+          disabled={messages.length > 2 || !weekData}
+          className={`w-20 px-4 py-2 text-white rounded-lg ${
+            messages.length > 2 || !weekData
+              ? "bg-gray-300 cursor-not-allowed"
+              : "bg-green-500 hover:bg-green-700"
+          }`}
         >
           전송
         </button>

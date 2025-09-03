@@ -43,6 +43,25 @@ export default function MyCalenderWrapper() {
     );
   });
 
+  const getLastWeekData = (data: TemperatureRecord[]) => {
+    const lastWeek = new Date();
+    lastWeek.setDate(lastWeek.getDate() - 7);
+
+    const lastWeekData = data.filter((record) => {
+      const recordDate = new Date(record.created_at);
+      return recordDate >= lastWeek && recordDate <= new Date();
+    });
+    return {
+      scores: {
+        positive: lastWeekData.filter((d) => d.emotion <= 1).length,
+        neutral: lastWeekData.filter((d) => d.emotion === 2 || d.emotion === 3)
+          .length,
+        negative: lastWeekData.filter((d) => d.emotion >= 4).length,
+      },
+      diaries: lastWeekData.map((d) => d.content),
+    };
+  };
+
   return (
     <div className="flex justify-center gap-2 m-auto">
       <div className="flex flex-col w-full max-w-md gap-8 px-5 text-center">
@@ -59,7 +78,11 @@ export default function MyCalenderWrapper() {
             drawerOpen={isOpenAI}
             setDrawerOpen={setIsOpenAI}
           >
-            <OpenAi messages={messages} setMessages={setMessages} />
+            <OpenAi
+              messages={messages}
+              setMessages={setMessages}
+              weekData={getLastWeekData(newTodos)}
+            />
           </Drawer>
           <Drawer
             label="오늘의 감정 추가하기"
@@ -98,6 +121,8 @@ export default function MyCalenderWrapper() {
           messages={messages}
           setMessages={setMessages}
           setNewTodos={setNewTodos}
+          setDrawerOpen={setIsOpenEmotion}
+          weekData={getLastWeekData(newTodos)}
         />
       </div>
     </div>

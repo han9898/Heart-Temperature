@@ -8,12 +8,23 @@ export default function DesktopPanel({
   messages,
   setMessages,
   setNewTodos,
+  weekData,
+  setDrawerOpen,
 }: {
   messages: { role: string; content: string }[];
   setMessages: React.Dispatch<
     React.SetStateAction<{ role: string; content: string }[]>
   >;
   setNewTodos: React.Dispatch<unknown>;
+  weekData: {
+    scores: {
+      positive: number;
+      neutral: number;
+      negative: number;
+    };
+    diaries: string[];
+  };
+  setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [isOpenAIVisible, setIsOpenAIVisible] = useState(false);
   const [isEmotionVisible, setIsEmotionVisible] = useState(false);
@@ -40,7 +51,11 @@ export default function DesktopPanel({
             isOpenAIVisible ? "max-h-[600px]" : "max-h-0"
           } overflow-hidden`}
         >
-          <OpenAi messages={messages} setMessages={setMessages} />
+          <OpenAi
+            messages={messages}
+            setMessages={setMessages}
+            weekData={weekData}
+          />
         </div>
       </div>
       <div className="overflow-hidden transition-all duration-500 bg-slate-50 rounded-2xl">
@@ -63,7 +78,10 @@ export default function DesktopPanel({
             isEmotionVisible ? "max-h-[500px]" : "max-h-0"
           } overflow-hidden`}
         >
-          <EmotionRecorder setTodos={setNewTodos} />
+          <EmotionRecorder
+            setTodos={setNewTodos}
+            setDrawerOpen={setDrawerOpen}
+          />
         </div>
       </div>
     </div>

@@ -121,9 +121,9 @@ export default function MyCalenderWrapper() {
             </AnimatePresence>
           ) : (
             <>
-              {today.getDate() === selectedDate.getDate() ? (
+              {today === selectedDate ? (
                 <div>오늘의 감정을 기록해보세요. 😄</div>
-              ) : today.getDate() < selectedDate.getDate() ? null : (
+              ) : today < selectedDate ? null : (
                 <div>이미 지나간 날입니다. 🥲</div>
               )}
             </>

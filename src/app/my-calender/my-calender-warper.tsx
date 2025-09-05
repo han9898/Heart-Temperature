@@ -64,37 +64,41 @@ export default function MyCalenderWrapper() {
 
   return (
     <div className="flex justify-center gap-2 m-auto">
-      <div className="flex flex-col w-full max-w-md gap-8 px-5 text-center">
+      <div className="flex flex-col max-w-md gap-8 px-5 text-center">
         <Calender
           todos={newTodos}
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
         />
 
-        <div className="block md:hidden">
-          <Drawer
-            label="AI 감정 분석"
-            content="Open AI"
-            drawerOpen={isOpenAI}
-            setDrawerOpen={setIsOpenAI}
-          >
-            <OpenAi
-              messages={messages}
-              setMessages={setMessages}
-              weekData={getLastWeekData(newTodos)}
-            />
-          </Drawer>
-          <Drawer
-            label="오늘의 감정 추가하기"
-            content="오늘의 감정"
-            drawerOpen={isOpenEmotion}
-            setDrawerOpen={setIsOpenEmotion}
-          >
-            <EmotionRecorder
-              setTodos={setNewTodos}
+        <div className="flex justify-center gap-4 md:hidden">
+          <div className="w-40">
+            <Drawer
+              label="AI 감정 분석"
+              content="Open AI"
+              drawerOpen={isOpenAI}
+              setDrawerOpen={setIsOpenAI}
+            >
+              <OpenAi
+                messages={messages}
+                setMessages={setMessages}
+                weekData={getLastWeekData(newTodos)}
+              />
+            </Drawer>
+          </div>
+          <div className="w-40">
+            <Drawer
+              label="오늘의 감정 추가하기"
+              content="오늘의 감정"
+              drawerOpen={isOpenEmotion}
               setDrawerOpen={setIsOpenEmotion}
-            />
-          </Drawer>
+            >
+              <EmotionRecorder
+                setTodos={setNewTodos}
+                setDrawerOpen={setIsOpenEmotion}
+              />
+            </Drawer>
+          </div>
         </div>
 
         <div className="flex flex-col gap-2">

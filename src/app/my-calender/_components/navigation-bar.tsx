@@ -7,7 +7,7 @@ export default function NavigationBar() {
   const isHome = pathname === "/";
 
   return (
-    <div className="fixed left-0 right-0 z-50 flex justify-center p-6 bg-white">
+    <div className="fixed left-0 right-0 z-20 flex justify-center p-6 bg-white">
       <Link
         className={`relative inline-block cursor-pointer group w-[60px] text-center ${isHome ? "" : "group"}`}
         href="/"

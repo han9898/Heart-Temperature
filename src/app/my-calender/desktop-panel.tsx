@@ -41,7 +41,7 @@ export default function DesktopPanel({
         >
           <div>Open AI</div>
           <div
-            className={`transition-transform duration-300 ${isOpenAIVisible ? "rotate-180 text-gray-400" : "rotate-0 group-hover:rotate-180"}`}
+            className={`transition-transform duration-300 ${isOpenAIVisible ? "rotate-180 text-gray-400" : "rotate-0 group-hover:-rotate-90"}`}
           >
             ▼
           </div>
@@ -68,7 +68,7 @@ export default function DesktopPanel({
         >
           <div>오늘의 감정은 어떤가요?</div>
           <div
-            className={`transition-transform duration-300 ${isEmotionVisible ? "rotate-180 text-gray-400" : "rotate-0 group-hover:rotate-180"}`}
+            className={`transition-transform duration-300 ${isEmotionVisible ? "rotate-180 text-gray-400" : "rotate-0 group-hover:-rotate-90"}`}
           >
             ▼
           </div>

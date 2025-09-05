@@ -98,7 +98,7 @@ export default function Calendar({
     setCurrent(new Date(current.getFullYear(), current.getMonth() + 1, 1));
 
   return (
-    <div className="px-4 py-6 bg-slate-50 rounded-2xl">
+    <div className="px-4 py-6 bg-slate-50 rounded-2xl w-[400px]">
       <div className="flex items-center justify-between mb-5">
         <button onClick={handlePrev}>◀</button>
         <span className="font-bold">

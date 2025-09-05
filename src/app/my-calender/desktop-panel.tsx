@@ -27,7 +27,7 @@ export default function DesktopPanel({
   setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [isOpenAIVisible, setIsOpenAIVisible] = useState(false);
-  const [isEmotionVisible, setIsEmotionVisible] = useState(false);
+  const [isEmotionVisible, setIsEmotionVisible] = useState(true);
 
   return (
     <div className="flex flex-col gap-4">

@@ -98,22 +98,32 @@ export default function MyCalenderWrapper() {
         </div>
 
         <div className="flex flex-col gap-2">
-          <AnimatePresence>
-            {filteredTodos.map((t) => {
-              const formattedDate = formatKoreanDate(t.created_at);
-              return (
-                <motion.div
-                  key={t.id}
-                  initial={{ opacity: 0, y: -15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <Diary todos={t} createdAt={formattedDate} />
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
+          {filteredTodos && filteredTodos.length > 0 ? (
+            <AnimatePresence>
+              {filteredTodos.map((t) => {
+                const formattedDate = formatKoreanDate(t.created_at);
+                return (
+                  <motion.div
+                    key={t.id}
+                    initial={{ opacity: 0, y: -15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Diary todos={t} createdAt={formattedDate} />
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          ) : (
+            <>
+              {today.getDate() === selectedDate.getDate() ? (
+                <div>오늘의 감정을 기록해보세요. 😄</div>
+              ) : today.getDate() < selectedDate.getDate() ? null : (
+                <div>이미 지나간 날입니다. 🥲</div>
+              )}
+            </>
+          )}
         </div>
       </div>
       <div className="sticky self-start hidden px-5 top-24 md:block">

@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import sendMessage from "../../api/openai/send-message";
 import { motion, AnimatePresence } from "framer-motion";
+import { getAnalysisPrompt } from "../../../prompts/analysis-prompt";
 
 type OpenAiProps = {
   messages: { role: string; content: string }[];
@@ -61,30 +62,7 @@ export default function OpenAi({
     setIsLoading(true);
 
     try {
-      const additionalMessage = `너는 항상 냉정한 감정 분석가야. 
-      최근 1주일 감정 요약과 일기는 다음과 같아: ${JSON.stringify(weekData, null, 2)}
-      
-      이 데이터를 기반으로 감정 추세와 일기 내용을 분석해줘.
-      결과는 다음 형식으로 작성해:
-      
-      😄 긍정: xx, 🙂 중립: xx, 🥲 부정: xx 
-
-      ✏️
-      - 3~5문장으로 작성해. 보기 좋게 이모티콘을 활용해.  
-
-      ✏️ 
-      - 3~5문장으로 작성해. 보기 좋게 이모티콘을 활용해.  
-
-      ---
-
-      추가로 하고 싶은 말이 있다면: 
-      ${content} 
-      
-      - 이 경우 1~3문장으로 짧게 대답해.  
-      - 만약 분석을 요청하는 경우라면 아무 말도 하지 말고 '감사합니다'로만 끝내.  
-
-      절대 너의 정체가 감정 분석가라는 사실을 잊지 마.`;
-
+      const additionalMessage = getAnalysisPrompt(weekData, content);
       const messagesToSend = [
         ...messages,
         newMsg,

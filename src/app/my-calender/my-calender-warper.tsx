@@ -64,7 +64,7 @@ export default function MyCalenderWrapper() {
 
   return (
     <div className="flex justify-center gap-2 m-auto">
-      <div className="flex flex-col max-w-md gap-8 px-5 text-center">
+      <div className="flex flex-col items-center max-w-md gap-8 px-2 text-center">
         <Calender
           todos={newTodos}
           selectedDate={selectedDate}
@@ -130,7 +130,7 @@ export default function MyCalenderWrapper() {
           )}
         </div>
       </div>
-      <div className="sticky self-start hidden px-5 top-24 md:block">
+      <div className="sticky self-start hidden px-2 top-24 md:block">
         <DesktopPanel
           messages={messages}
           setMessages={setMessages}

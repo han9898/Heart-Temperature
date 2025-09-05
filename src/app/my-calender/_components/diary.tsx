@@ -21,7 +21,7 @@ export default function Diary({ todos, createdAt }: DiaryProps) {
     if (todos.emotion === 5) return "😭";
   };
   return (
-    <div className="my-4">
+    <div className="my-4 w-[400px]">
       <div className="mb-3 text-base font-bold text-left text-gray-400">
         {createdAt}
       </div>

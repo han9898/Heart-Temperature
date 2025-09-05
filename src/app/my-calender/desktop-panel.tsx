@@ -31,7 +31,7 @@ export default function DesktopPanel({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="overflow-hidden transition-all duration-500 bg-slate-50 rounded-2xl">
+      <div className="overflow-hidden transition-all duration-300 bg-slate-50 rounded-2xl">
         <div
           className={`flex group justify-between px-8 py-4 text-lg font-bold cursor-pointer transition-all duration-500 ${isOpenAIVisible ? "text-gray-400" : ""}`}
           onClick={() => {
@@ -47,7 +47,7 @@ export default function DesktopPanel({
           </div>
         </div>
         <div
-          className={`px-4 transition-all duration-1000 ${
+          className={`px-4 transition-all duration-500 ${
             isOpenAIVisible ? "max-h-[600px]" : "max-h-0"
           } overflow-hidden`}
         >
@@ -58,7 +58,7 @@ export default function DesktopPanel({
           />
         </div>
       </div>
-      <div className="overflow-hidden transition-all duration-500 bg-slate-50 rounded-2xl">
+      <div className="overflow-hidden transition-all duration-300 bg-slate-50 rounded-2xl">
         <div
           className={`flex group justify-between px-8 py-4 text-lg font-bold cursor-pointer transition-all duration-500 ${isEmotionVisible ? "text-gray-400" : ""}`}
           onClick={() => {
@@ -74,7 +74,7 @@ export default function DesktopPanel({
           </div>
         </div>
         <div
-          className={`px-4 transition-all duration-1000 ${
+          className={`px-4 transition-all duration-500 ${
             isEmotionVisible ? "max-h-[500px]" : "max-h-0"
           } overflow-hidden`}
         >

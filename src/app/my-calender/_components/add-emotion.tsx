@@ -54,8 +54,10 @@ export default function EmotionRecorder({
             <button
               key={key}
               onClick={() => setEmotion(key)}
-              className={`px-4 py-2 rounded hover:bg-gray-300 ${
-                emotion === key ? "bg-green-300 text-white" : "bg-gray-200"
+              className={`px-4 py-2 rounded hover:bg-gray-300 dark:hover:bg-gray-400 ${
+                emotion === key
+                  ? "bg-green-300 dark:bg-green-700 text-white"
+                  : "bg-gray-200"
               }`}
             >
               {emotionMap[key]}
@@ -68,7 +70,7 @@ export default function EmotionRecorder({
           onChange={(e) => setContent(e.target.value)}
           placeholder="오늘의 감정을 적어주세요"
           rows={1}
-          className="w-full p-4 overflow-hidden border rounded-lg resize-none focus:outline-none focus:ring-0"
+          className="w-full p-4 overflow-hidden border rounded-lg resize-none dark:bg-slate-800 dark:border-gray-700 focus:outline-none focus:ring-0"
           onInput={(e) => {
             const t = e.target as HTMLTextAreaElement;
             t.style.height = "auto";
@@ -82,7 +84,7 @@ export default function EmotionRecorder({
               handleSubmit();
               setDrawerOpen?.(false);
             }}
-            className={`rounded-lg px-4 py-2 text-white bg-green-500 hover:bg-green-600 ${emotion || content ? "" : "cursor-not-allowed"}`}
+            className={`rounded-lg px-4 py-2 text-white dark:bg-green-700 dark:hover:bg-green-800 bg-green-500 hover:bg-green-600 ${emotion || content ? "" : "cursor-not-allowed"}`}
           >
             저장하기
           </button>
@@ -91,7 +93,7 @@ export default function EmotionRecorder({
               setEmotion(null);
               setContent("");
             }}
-            className={`rounded-lg px-4 py-2 text-white ${emotion || content ? "bg-green-500 hover:bg-green-600" : "bg-gray-300 cursor-not-allowed"}`}
+            className={`rounded-lg px-4 py-2 text-white ${emotion || content ? "dark:bg-green-700 dark:hover:bg-green-800 bg-green-500 hover:bg-green-600" : "bg-gray-300 cursor-not-allowed"}`}
           >
             초기화
           </button>

@@ -1,13 +1,15 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import ThemeToggle from "../../../components/theme-toggle";
 
 export default function NavigationBar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
 
   return (
-    <div className="fixed left-0 right-0 z-20 flex justify-center p-6 bg-white">
+    <div className="fixed left-0 right-0 z-20 flex items-center justify-between p-6 bg-white dark:bg-slate-900">
+      <div className="w-20" />
       <Link
         className={`relative inline-block cursor-pointer group w-[60px] text-center ${isHome ? "" : "group"}`}
         href="/"
@@ -25,6 +27,9 @@ export default function NavigationBar() {
           </span>
         )}
       </Link>
+      <div className="">
+        <ThemeToggle />
+      </div>
     </div>
   );
 }

@@ -68,11 +68,11 @@ export default function Calendar({
             day.type === "current" &&
             setSelectedDate(new Date(year, month, day.day))
           }
-          className={`p-4 text-center cursor-pointer rounded-lg
-            ${day.type === "current" ? "hover:bg-gray-300" : ""}
-            ${day.type !== "current" ? "text-gray-200" : ""}
-            ${isSelected ? "bg-green-300 text-white font-bold" : ""}
-            ${isToday && !isSelected ? "bg-gray-200 font-bold" : ""}
+          className={`p-4 text-center cursor-pointer rounded-lg 
+            ${day.type === "current" ? "hover:bg-gray-300 dark:hover:bg-gray-600" : ""}
+            ${day.type !== "current" ? "text-gray-200 dark:text-gray-700" : ""}
+            ${isSelected ? "bg-green-300 dark:bg-green-700 text-white font-bold" : ""}
+            ${isToday && !isSelected ? "bg-gray-200 font-bold dark:bg-gray-600" : ""}
             ${
               day.type === "current" && !isSelected
                 ? hasTodo
@@ -80,8 +80,8 @@ export default function Calendar({
                     ? "text-red-500 hover:bg-gray-300"
                     : weekday === 6
                       ? "text-blue-500 hover:bg-gray-300"
-                      : "text-black hover:bg-gray-300"
-                  : "text-gray-400"
+                      : "text-black hover:bg-gray-300 dark:text-slate-50"
+                  : "text-gray-400 dark:text-gray-600"
                 : ""
             }
           `}
@@ -98,7 +98,7 @@ export default function Calendar({
     setCurrent(new Date(current.getFullYear(), current.getMonth() + 1, 1));
 
   return (
-    <div className="px-4 py-6 bg-slate-50 rounded-2xl w-[400px]">
+    <div className="px-4 py-6 bg-slate-50 rounded-2xl w-[400px] dark:bg-black">
       <div className="flex items-center justify-between mb-5">
         <button onClick={handlePrev}>◀</button>
         <span className="font-bold">

@@ -8,7 +8,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="Ko">
-      <body className="select-none font-pretendard">
+      <body className="select-none font-pretendard dark:bg-slate-900 dark:text-slate-100">
         <NavigationBar />
         {children}
       </body>

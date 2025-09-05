@@ -103,8 +103,8 @@ export default function OpenAi({
               <div
                 className={`px-4 py-2 rounded-lg max-w-xs break-words whitespace-pre-wrap text-start ${
                   msg.role === "user"
-                    ? "bg-green-500 text-white rounded-br-none"
-                    : "bg-gray-200 text-gray-800 rounded-bl-none"
+                    ? "bg-green-500 text-white rounded-br-none dark:bg-green-700"
+                    : "bg-gray-200 text-gray-800 rounded-bl-none dark:bg-gray-700 dark:text-gray-200"
                 }`}
               >
                 {msg.content}
@@ -119,7 +119,7 @@ export default function OpenAi({
               transition={{ type: "spring", stiffness: 500, damping: 25 }}
             >
               <div className="flex justify-start">
-                <div className="max-w-xs px-4 py-2 text-gray-800 break-words bg-gray-200 rounded-lg animate-pulse">
+                <div className="max-w-xs px-4 py-2 text-gray-800 break-words bg-gray-200 rounded-lg animate-pulse dark:bg-gray-700 dark:text-gray-200">
                   OpenAI가 응답 중...
                 </div>
               </div>
@@ -139,7 +139,7 @@ export default function OpenAi({
           }
           disabled={isLoading || messages.length > 2 || !weekData}
           rows={1}
-          className="w-full p-4 overflow-hidden border rounded-lg resize-none focus:outline-none focus:ring-0"
+          className="w-full p-4 overflow-hidden border rounded-lg resize-none focus:outline-none focus:ring-0 dark:bg-slate-800 dark:border-gray-700"
           onInput={(e) => {
             const target = e.target as HTMLTextAreaElement;
             target.style.height = "auto";
@@ -152,7 +152,7 @@ export default function OpenAi({
           className={`w-20 px-4 py-2 text-white rounded-lg ${
             messages.length > 2 || !weekData
               ? "bg-gray-300 cursor-not-allowed"
-              : "bg-green-500 hover:bg-green-700"
+              : "dark:bg-green-700 dark:hover:bg-green-800 bg-green-500 hover:bg-green-700"
           }`}
         >
           전송

@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import Calender from "./_components/calender";
+import Calender from "../../components/calender";
 import Diary from "./_components/diary";
 import OpenAi from "./_components/open-ai";
 import EmotionRecorder from "./_components/add-emotion";
@@ -11,6 +11,7 @@ import Drawer from "../../components/drawer";
 import { useEffect, useState } from "react";
 import DesktopPanel from "./desktop-panel";
 import { motion, AnimatePresence } from "framer-motion";
+import DiaryMsg from "../../components/diasy-msg";
 
 export default function MyCalenderWrapper() {
   const { data: todos = [] } = useQuery<TemperatureRecord[]>({
@@ -121,11 +122,7 @@ export default function MyCalenderWrapper() {
             </AnimatePresence>
           ) : (
             <>
-              {today === selectedDate ? (
-                <div>오늘의 감정을 기록해보세요. 😄</div>
-              ) : today < selectedDate ? null : (
-                <div>이미 지나간 날입니다. 🥲</div>
-              )}
+              <DiaryMsg selectedDate={selectedDate} />
             </>
           )}
         </div>
